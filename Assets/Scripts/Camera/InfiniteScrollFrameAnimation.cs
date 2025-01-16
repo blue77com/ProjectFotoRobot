@@ -50,7 +50,11 @@ public class InfiniteScrollFrameAnimation : MonoBehaviour
     void Update()
     {
         // Пропустить обработку, если скрипт отключен
-        if (!isEnabled) return;
+        if (!isEnabled)
+        {
+            SetFocusDistance(100f);
+            return; // Останавливаем дальнейшую обработку
+        }
 
         timer += Time.deltaTime;
 
@@ -104,20 +108,21 @@ public class InfiniteScrollFrameAnimation : MonoBehaviour
         // Если задержка ещё не истекла, пропускаем обработку
         if (dragTimer < dragSwitchDelay) return;
 
+        // Разница в положении мыши по горизонтали
         Vector3 mouseDelta = Input.mousePosition - previousMousePosition;
 
-        if (Mathf.Abs(mouseDelta.y) > mouseDragSensitivity)
+        if (Mathf.Abs(mouseDelta.x) > mouseDragSensitivity) // Изменение по оси X
         {
-            float dragAmount = mouseDelta.y * 0.01f; // Уменьшение масштаба изменений
-            if (dragAmount > 0 && canDecreaseFocus)
-            {
-                PreviousFrame();
-                AdjustFocus(-focusChangeRate * Mathf.Abs(dragAmount));
-            }
-            else if (dragAmount < 0 && canIncreaseFocus)
+            float dragAmount = mouseDelta.x * 0.01f; // Уменьшение масштаба изменений
+            if (dragAmount > 0 && canIncreaseFocus) // Движение вправо
             {
                 NextFrame();
                 AdjustFocus(focusChangeRate * Mathf.Abs(dragAmount));
+            }
+            else if (dragAmount < 0 && canDecreaseFocus) // Движение влево
+            {
+                PreviousFrame();
+                AdjustFocus(-focusChangeRate * Mathf.Abs(dragAmount));
             }
 
             // Сбрасываем таймер после смены кадра
@@ -127,6 +132,16 @@ public class InfiniteScrollFrameAnimation : MonoBehaviour
             previousMousePosition = Input.mousePosition;
         }
     }
+
+    private void SetFocusDistance(float value)
+    {
+        if (depthOfField != null)
+        {
+            depthOfField.focusDistance.value = value;
+        }
+    }
+
+
 
     public void OnMouseDown()
     {
@@ -143,6 +158,8 @@ public class InfiniteScrollFrameAnimation : MonoBehaviour
 
     public void NextFrame()
     {
+        if (!isEnabled) return;
+
         if (frames == null || frames.Length == 0) return;
 
         currentFrame = (currentFrame + 1) % frames.Length;
@@ -151,6 +168,8 @@ public class InfiniteScrollFrameAnimation : MonoBehaviour
 
     public void PreviousFrame()
     {
+        if (!isEnabled) return;
+
         if (frames == null || frames.Length == 0) return;
 
         currentFrame = (currentFrame - 1 + frames.Length) % frames.Length;

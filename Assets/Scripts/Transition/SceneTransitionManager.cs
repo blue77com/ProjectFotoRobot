@@ -18,6 +18,7 @@ public class SceneTransitionManager : MonoBehaviour
 
                 // Получаем целевой слой из culling mask и применяем его к камере и дочерним объектам
                 int targetLayer = LayerMaskToLayer(TargetCullingMask);
+                cameraObject.layer = LayerMask.NameToLayer("Post process");
                 if (targetLayer != -1)
                 {
                     // Устанавливаем слой для камеры и всех её дочерних объектов
@@ -27,6 +28,8 @@ public class SceneTransitionManager : MonoBehaviour
                 {
                     Debug.LogWarning("Culling mask не соответствует конкретному слою.");
                 }
+                cameraObject.layer = LayerMask.NameToLayer("Post process");
+
             }
             else
             {

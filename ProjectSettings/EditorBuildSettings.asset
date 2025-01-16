@@ -6,9 +6,24 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Cutscene.unity
+    guid: 5747966c7d26b6f468e3006c0ceefda4
+  - enabled: 1
+    path: Assets/Scenes/ThirdScene.unity
+    guid: 54e5c445735eafd488e94512265dc77e
+  - enabled: 1
+    path: Assets/Scenes/StreetTitle.unity
+    guid: b4523ce7bf8413348b502ac794539915
+  - enabled: 1
     path: Assets/Scenes/FirstScene.unity
     guid: bed75b4ec90538c4b8f20d2bdb887af4
   - enabled: 1
     path: Assets/Scenes/SecondScene.unity
     guid: 629808fc14fc6724c8b03aaa2792617a
+  - enabled: 1
+    path: Assets/Scenes/CutsceneFin.unity
+    guid: c76fcee08dd0d9546b8b2ad582b768ec
+  - enabled: 1
+    path: Assets/Scenes/ThanksPlaying.unity
+    guid: b1d1164971e16fe4b97ef081b309fb39
   m_configObjects: {}

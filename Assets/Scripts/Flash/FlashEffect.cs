@@ -20,7 +20,7 @@ public class FlashEffect : MonoBehaviour
     public FlashSettings[] flashSettingsByIndex; // Настройки для каждого индекса
     public Camera targetCamera; // Камера для проверки FOV и DOF
 
-    public InfiniteScrollFrameAnimation ScrollFrameAnimation;
+    public InfiniteScrollFrameAnimation scrollAnimationScript;
     public CameraFOVController cameraFOVController;
     public CameraMoving cameraMovingScript;
 
@@ -86,6 +86,8 @@ public class FlashEffect : MonoBehaviour
         cameraFOVController.isEnabled = false;
         cameraMovingScript.isEnabled = false;
 
+        SetIndex(currentIndex);
+
         var settings = flashSettingsByIndex[currentIndex];
 
         // Резкое появление (включение белого экрана)
@@ -110,10 +112,18 @@ public class FlashEffect : MonoBehaviour
 
         photoCaptureManager.UpdateAfterFlash(IsWin);
 
+        if (IsWin)
+        {
+            scrollAnimationScript.isEnabled = false;
+            isButton = true;
+        }
+        else
+        {
+            isButton = false;
+        }
+
         // Сообщаем о завершении проверки
         Debug.Log(IsWin ? "Win state: True" : "Win state: False");
-
-        isButton = false; // Сброс состояния кнопки
     }
 
     private bool IsWithinBounds(FlashSettings settings)

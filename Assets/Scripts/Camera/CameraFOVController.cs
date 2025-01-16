@@ -15,7 +15,7 @@ public class CameraFOVController : MonoBehaviour
         // Set the scrollbar's initial value based on the camera's current FOV
         if (fovScrollbar != null)
         {
-            fovScrollbar.value = (m.fieldOfView - 15.0f) / (90.0f - 15.0f);
+            fovScrollbar.value = (m.fieldOfView - 15.0f) / (75.0f - 15.0f);
             fovScrollbar.onValueChanged.AddListener(OnScrollbarValueChanged);
         }
     }
@@ -42,12 +42,12 @@ public class CameraFOVController : MonoBehaviour
         }
 
         // Clamp FOV to reasonable limits
-        m.fieldOfView = Mathf.Clamp(m.fieldOfView, 15.0f, 90.0f);
+        m.fieldOfView = Mathf.Clamp(m.fieldOfView, 15.0f, 75.0f);
 
         // Update scrollbar value to match FOV
         if (fovScrollbar != null)
         {
-            fovScrollbar.value = (m.fieldOfView - 15.0f) / (90.0f - 15.0f);
+            fovScrollbar.value = (m.fieldOfView - 15.0f) / (75.0f - 15.0f);
         }
     }
 
@@ -61,6 +61,6 @@ public class CameraFOVController : MonoBehaviour
         }
 
         // Update camera's FOV based on scrollbar value
-        m.fieldOfView = Mathf.Lerp(15.0f, 90.0f, value);
+        m.fieldOfView = Mathf.Lerp(15.0f, 75.0f, value);
     }
 }
